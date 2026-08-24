@@ -1,0 +1,11 @@
+# © 2026 aiaiaiai · aiaiaiai.org
+# SPDX-License-Identifier: MIT
+schema_version: 1
+
+identity:
+  type: organization
+  id: nilx-one
+  display_name: nilx.one
+
+validation:
+  schema: schema/identity-resource.schema.json

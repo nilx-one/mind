@@ -1,15 +1,24 @@
-schema_version: 1
+# © 2026 aiaiaiai · aiaiaiai.org
+# SPDX-License-Identifier: MIT
+schema_version: 3
+
+protocol:
+  id: mind
+  version: 0.9.0
 
 mind:
-  name: mind
-  kind: abstract
-  context_version: 0.1.0
+  name: mind@nilx-one
+  context_version: 0.2.0
+  subject:
+    type: organization
+    id: nilx-one
   owner:
-    type: unspecified
-    id: unspecified
+    type: organization
+    id: nilx-one
 
 contract:
   canonical_source: required
+  explicit_subject: required
   explicit_owner: required
   versioned_context: required
   human_readable: required
@@ -17,8 +26,10 @@ contract:
   secrets: forbidden
 
 modules:
-  required: []
-  registered: []
+  required:
+    - identity
+  registered:
+    - identity
   rules:
     single_responsibility: required
     explicit_dependencies: required
@@ -26,16 +37,29 @@ modules:
     duplicate_content: forbidden
     cross_reference: preferred
     composition_over_inheritance: preferred
+  catalog:
+    identity: modules/identity/module.yaml
 
 context:
   stability:
     stable: long_lived_contracts
     transient: current_state
     archived: ignored_unless_requested
+  visibility:
+    repository: public
+    allowed: durable_public_organization_context
+    forbidden:
+      - credentials
+      - secrets
+      - private_personal_data
+      - private_infrastructure_state
+      - transient_operational_state
 
 loading:
-  default: []
+  default:
+    - identity
   optional: []
 
 validation:
   schema: schema/mind.schema.json
+  module_schema: schema/module.schema.json
