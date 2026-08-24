@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiaiaiai.org/mind/schema/identity/v1",
+  "title": "Mind Identity",
+  "description": "Canonical implementation-independent identity value used by Mind Protocol.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "id", "display_name"],
+  "$defs": {
+    "identity_type": {
+      "type": "string",
+      "enum": ["person", "organization", "agent", "project", "product"]
+    },
+    "primary_mark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "asset_ref", "alt"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["logo", "emblem", "monogram", "glyph", "signature"]
+        },
+        "asset_ref": {
+          "description": "Opaque canonical asset identifier. Resolution belongs to the concrete mind implementation, not the universal identity value.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "type": {
+      "$ref": "#/$defs/identity_type"
+    },
+    "id": {
+      "description": "Stable provider-independent identifier within the identity's declared namespace.",
+      "type": "string",
+      "minLength": 1
+    },
+    "display_name": {
+      "description": "Canonical human-readable name; not a provider handle.",
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_identity": {
+      "description": "Optional semantic visual identity. Asset resolution is deliberately outside this universal contract.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "primary_mark": {
+          "$ref": "#/$defs/primary_mark"
+        }
+      }
+    }
+  }
+}
