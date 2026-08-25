@@ -15,7 +15,7 @@ The canonical display name is authored as `nilx.one`; the GitHub slug `nilx-one`
 
 `nilx.one` is not synonymous with `0x1`. `0x1` is an independent product identity within this namespace and is deliberately outside this narrow organization Identity resource.
 
-This concrete Mind currently consumes Mind Protocol `1.0.0-rc.1` and does not publish a canonical visual mark. Canonical visual identity remains optional and must be explicitly authored through a named visual-identity rollout; provider avatars and presentation fallbacks remain noncanonical unless deliberately adopted.
+This concrete Mind currently consumes Mind Protocol `1.0.0-rc.2` and does not publish a canonical visual mark. Canonical visual identity remains optional and must be explicitly authored through a named visual-identity rollout; provider avatars and presentation fallbacks remain noncanonical unless deliberately adopted.
 
 ## Scope
 
