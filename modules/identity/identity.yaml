@@ -6,6 +6,11 @@ identity:
   type: organization
   id: nilx-one
   display_name: nilx.one
+  visual_identity:
+    primary_mark:
+      kind: emblem
+      asset_ref: nilx-one-compact-emblem
+      alt: nilx.one
 
 validation:
   schema: schema/identity-resource.schema.json
