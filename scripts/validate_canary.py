@@ -21,6 +21,18 @@ EXPECTED_PROTOCOL_CONSUMPTION = {
     "release_commit": "acdcedcf02c8b4ef314179bf54955a84606c8fb5",
     "floating_master": "forbidden",
 }
+EXPECTED_IDENTITY = {
+    "type": "organization",
+    "id": "nilx-one",
+    "display_name": "nilx.one",
+    "visual_identity": {
+        "primary_mark": {
+            "kind": "emblem",
+            "asset_ref": "nilx-one-compact-emblem",
+            "alt": "nilx.one",
+        }
+    },
+}
 
 
 def validate() -> list[str]:
@@ -35,8 +47,8 @@ def validate() -> list[str]:
         errors.append("manifest must consume Mind Protocol 1.0.0-rc.2")
     if mind.get("name") != "mind@nilx-one":
         errors.append("canonical mind name must be mind@nilx-one")
-    if mind.get("context_version") != "0.2.0":
-        errors.append("protocol-only RC synchronization must preserve context_version 0.2.0")
+    if mind.get("context_version") != "0.3.0":
+        errors.append("canonical visual-identity publication must advance context_version to 0.3.0")
     if mind.get("subject") != EXPECTED_ENTITY or mind.get("owner") != EXPECTED_ENTITY:
         errors.append("subject and publication owner must remain organization:nilx-one")
 
@@ -45,7 +57,7 @@ def validate() -> list[str]:
         errors.append("nilx-one/mind must not declare protocol authority")
     concrete = roles.get("concrete_mind", {})
     if concrete.get("enabled") is not True or concrete.get("canonical_for_subject") != EXPECTED_ENTITY:
-        errors.append("repository must be a concrete Mind canonical only for organization:nilx-one")
+        errors.append("repository must remain canonical only for organization:nilx-one")
     if concrete.get("reference_implementation") is not False or concrete.get("template_authority") is not False:
         errors.append("concrete organization Mind must not be reference or template authority")
     if repository.get("protocol_consumption") != EXPECTED_PROTOCOL_CONSUMPTION:
@@ -55,21 +67,22 @@ def validate() -> list[str]:
 
     modules = manifest.get("modules", {})
     if modules.get("required") != ["identity"] or modules.get("registered") != ["identity"]:
-        errors.append("RC consumer must contain only the authored identity module")
+        errors.append("visual identity must remain a resource of the authored identity module")
 
-    descriptor = load_yaml_mapping(ROOT / "modules/identity/module.yaml")
-    if descriptor.get("module", {}).get("owner") != EXPECTED_ENTITY:
-        errors.append("identity module owner must be organization:nilx-one")
+    descriptor = load_yaml_mapping(ROOT / "modules/identity/module.yaml").get("module", {})
+    if descriptor.get("owner") != EXPECTED_ENTITY:
+        errors.append("identity module owner must remain organization:nilx-one")
+    resources = descriptor.get("resources", {})
+    if set(resources) != {"identity", "visual_assets"}:
+        errors.append("identity module must register exactly identity and visual_assets resources")
 
     identity = load_yaml_mapping(ROOT / "modules/identity/identity.yaml").get("identity")
-    if identity != {"type": "organization", "id": "nilx-one", "display_name": "nilx.one"}:
-        errors.append("canonical Identity must remain nilx.one / organization:nilx-one")
+    if identity != EXPECTED_IDENTITY:
+        errors.append("canonical Identity or primary visual mark drifted from the authored publication")
     if isinstance(identity, dict) and identity.get("id") == "0x1":
         errors.append("0x1 product identity must never replace the nilx.one organization Identity")
-    if isinstance(identity, dict) and "visual_identity" in identity:
-        errors.append("RC synchronization must not invent canonical visual identity")
     if (ROOT / "modules/relationships/module.yaml").exists():
-        errors.append("RC synchronization must not invent a relationship module")
+        errors.append("visual identity publication must not invent a relationship module")
 
     return errors
 
@@ -78,14 +91,14 @@ def main() -> int:
     try:
         errors = validate()
     except (OSError, ValueError, TypeError) as error:
-        print(f"nilx.one canary validation failed:\n- {error}", file=sys.stderr)
+        print("nilx.one canary validation failed:\n- " + str(error), file=sys.stderr)
         return 1
     if errors:
         print("nilx.one canary validation failed:", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print("nilx.one is a standalone concrete 1.0.0-rc.2 consumer with unchanged organization Identity/context")
+    print("nilx.one is a standalone 1.0.0-rc.2 consumer with canonical visual identity context 0.3.0")
     return 0
 
 
