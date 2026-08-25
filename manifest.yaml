@@ -8,7 +8,7 @@ protocol:
 
 mind:
   name: mind@nilx-one
-  context_version: 0.3.0
+  context_version: 0.2.0
   subject:
     type: organization
     id: nilx-one
