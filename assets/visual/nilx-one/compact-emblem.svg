@@ -1,0 +1,18 @@
+<!-- © 2026 aiaiaiai · aiaiaiai.org -->
+<!-- SPDX-License-Identifier: MIT -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">nilx.one compact emblem</title>
+  <desc id="desc">Indigo faceted N-shaped namespace emblem with three transparent negative-space channels.</desc>
+  <defs>
+    <mask id="facets-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <rect width="64" height="64" fill="black"/>
+      <polygon id="mask-body" points="10,11 24,7 40,36 40,11 54,7 52,53 40,57 24,28 24,53 10,57" fill="white"/>
+      <g id="channels" stroke="black" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="10.5" y1="32" x2="24" y2="28"/>
+        <line x1="27" y1="18" x2="38" y2="38"/>
+        <line x1="40" y1="36" x2="53" y2="32"/>
+      </g>
+    </mask>
+  </defs>
+  <rect id="mark-fill" width="64" height="64" fill="#7765C6" mask="url(#facets-mask)"/>
+</svg>
