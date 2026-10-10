@@ -25,3 +25,5 @@ Defines the assistant's:
 - Prefer references to canonical repository files over copied context.
 
 The configuration is intentionally not tied to ChatGPT or any other single AI provider.
+
+<!-- © 2026 aiaiaiai · aiaiaiai.org -->
