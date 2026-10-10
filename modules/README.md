@@ -41,3 +41,5 @@ module_contracts:
 ```
 
 The example is illustrative and is not required by the baseline.
+
+<!-- © 2026 aiaiaiai · aiaiaiai.org -->

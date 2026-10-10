@@ -257,3 +257,5 @@ When generating or modifying repository content:
 - keep changes minimal and task-scoped
 - update references when canonical paths change
 - report ambiguity instead of silently guessing
+
+<!-- © 2026 aiaiaiai · aiaiaiai.org -->
