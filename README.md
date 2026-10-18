@@ -78,4 +78,8 @@ Protocol compatibility is expressed by the exact release lock, not GitHub fork a
 
 This repository contains durable public organization context only. Never commit secrets, credentials, private personal data, private infrastructure state, or transient operational state.
 
+## Repository-specific agent guidance
+
+The shared `CLAUDE.md` and `AGENTS.md` are synchronized with `nilx-one/core`. Local instructions (manifest-first loading, source precedence, and module boundaries) are preserved in [repository agent guidance](.claude/rules/mind-repository.md).
+
 <!-- © 2026 aiaiaiai · aiaiaiai.org -->
