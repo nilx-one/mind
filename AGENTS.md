@@ -186,11 +186,17 @@ account ID:
 | `0x0sky`       | 75973992   | `75973992+0x0sky@users.noreply.github.com`  |
 | `x0skai`       | 300452669  | `300452669+x0skai@users.noreply.github.com` |
 
-Tool credit is separate from account credit and applies only to real
-contribution to the commit:
+AI-tool co-authorship is separate from GitHub account credit. Credit only
+substantive work incorporated into the exact commit:
 
-- `Assisted-by: OpenAI Codex` when Codex contributed.
+- `Co-authored-by: Codex <codex@openai.com>` when OpenAI Codex contributed.
 - `Co-authored-by: Claude <noreply@anthropic.com>` when Claude contributed.
+
+`Assisted-by: OpenAI Codex` does **not** produce GitHub co-authorship and must
+not replace the Codex `Co-authored-by` trailer. In particular, a commit authored
+by `0x0sky` with genuine Codex changes must contain the Codex trailer in the
+**commit message**, not only in a pull request description. Do not add tool
+co-authors when that tool did not contribute to the commit.
 
 Rules:
 
@@ -212,8 +218,11 @@ Rules:
   author and reviewers establish that.
 - Before merge, inspect the pushed commits: author account ID, trailers and
   co-author IDs. A comment, review or PR body is not a substitute.
-- For squash merges, write the final message explicitly so genuine co-authors
-  and tool credits survive. Do not assume GitHub preserves them.
+- For squash merges, prepare the final message explicitly from verified source
+  contributions. Preserve genuine Codex/Claude co-authors; never repeat the
+  resulting squash commit's primary author as a co-author. Verify the actual
+  merged commit author and trailers afterwards: GitHub does not necessarily
+  preserve source commit messages. A PR body or review does not count.
 - Do not manufacture commits, rewrite merged history, or change merge methods to
   create credit. Signature verification and achievement status are reported
   separately.
@@ -230,75 +239,5 @@ Do not ask for confirmation when this policy already grants authority to
 continue. If the task cannot be completed, identify the concrete blocker and
 the exact state reached instead of giving a generic access or tooling
 disclaimer.
-
-This repository is the primary source of context for its Mind implementation.
-
-## Purpose
-
-Use this repository as the canonical knowledge base before relying on assumptions or inferred context.
-
-Prefer explicit repository contracts over conventions that are not declared by the repository.
-
-## Entry Point
-
-Start with `manifest.yaml`.
-
-The manifest defines:
-
-- the Mind kind and owner
-- registered modules
-- module loading order
-- optional context
-- validation schema
-
-Do not assume a fixed repository layout. Personal, organizational, and future Mind implementations may register different modules while sharing the same baseline contract.
-
-## Loading Rules
-
-- Read only the files relevant to the current task.
-- Follow the module and loading declarations in `manifest.yaml`.
-- Do not load the entire repository unless explicitly requested.
-- Treat registered Markdown documents as specifications unless they state otherwise.
-- Load archived context only when explicitly requested or required to resolve history.
-- Avoid duplicating information in generated outputs.
-
-## Source Precedence
-
-Each concept must have exactly one canonical source.
-
-When multiple files overlap or conflict:
-
-1. follow explicit precedence declared by `manifest.yaml` or the relevant module contract
-2. prefer the dedicated canonical specification for the concept
-3. prefer stable context over transient context unless the task concerns current state
-4. do not merge conflicting rules automatically
-5. surface unresolved conflicts clearly
-
-File modification time alone does not establish authority.
-
-## Module Boundaries
-
-- Respect each module's declared responsibility.
-- Do not introduce undeclared dependencies between modules.
-- Prefer cross-references over duplicated content.
-- Keep modules independently replaceable where the contract permits it.
-- Do not invent new systems when an existing registered module already owns the concern.
-
-## Safety and Integrity
-
-- Never add secrets, credentials, private keys, access tokens, or personal sensitive data unless the repository explicitly defines a secure external reference mechanism.
-- Preserve existing terminology and repository conventions.
-- Keep generated changes human-readable and compatible with the declared validation schema.
-- Do not reinterpret an abstract baseline as a concrete personal or organizational implementation.
-
-## Output
-
-When generating or modifying repository content:
-
-- state the relevant source or contract used
-- preserve canonical ownership
-- keep changes minimal and task-scoped
-- update references when canonical paths change
-- report ambiguity instead of silently guessing
 
 <!-- © 2026 aiaiaiai · aiaiaiai.org -->
